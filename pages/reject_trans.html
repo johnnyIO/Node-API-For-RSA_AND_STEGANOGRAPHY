@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Delete</title>
+</head>
+<body>
+    <div class="container mx-auto shadow-lg border bg-muted w-75 p-5 mt-5 rounded container_back" id="deleteTrans">
+        <h4 class="text-center mb-3">Delete Transcript</h4>
+
+        <h5 class="alert alert-danger text-center">Please be very sure you want to delete this, because this action can not be reversed</h5>
+    
+        <div>
+           
+            <div class="row mt-5">
+                <div class="col-md-6 wrap">
+                    <label class="btn btn-sm mb-2">Uploaded Image</label>
+                   <image :src="uploadFile"  width="348px" height="248px"/>
+                </div>
+                <div class="col-md-6">
+                    <label class="btn btn-sm mb-2">Why Are You Rejecting This Document?</label>
+                    <textarea v-model="reason" class="form-control" required cols="30" rows="10">
+                    </textarea>
+                </div>
+            </div>
+
+            <!-- <div class="row mt-5 text-center">
+                <button  class="btn btn-sm text-white mt-2 w-50" @click="encrypt" style="background-color:purple;" >Encrypt</button>
+            </div> -->
+        </div>
+        <div class="w-100 wrap">
+            <!-- <textarea readonly v-model="ciphertext" cols="30" rows="10" class="w-100 mt-4 form-control"></textarea> -->
+            <button class="btn btn-md mt-4 btn-danger" @click="deleteFile">Delete Document</button>
+        </div>
+    </div>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+<script>
+ var vue = new Vue({
+    el:"#deleteTrans",
+    data:{
+        uploadFile:"",
+        reason:"",
+        matric:"",
+        uid:"",
+
+    },
+    methods:{
+        selectvalues(){
+            this.uid = localStorage.getItem("reject_for")
+            //console.log(uid)
+            axios.post(`/getTrans`, {uid:this.uid})
+                 .then(result=>{
+                    this.uploadFile = result.data.path
+                    this.matric = result.data.student_matno
+                 })
+                 .catch(error=>{
+
+                 })
+        },
+        deleteFile(){
+
+            // let fa = {
+            //     upload:this.uploadedFile,
+            //     reason:this.reason,
+            //     matric:this.uid
+            // }
+            
+            if(this.reason === ""){
+                alert("Please provide a reason")
+                return
+            }
+
+            let arraySent = {
+                file:this.uploadFile, 
+                reason:this.reason, 
+                matric:this.uid
+            }
+            // console.log(fa)
+            axios.post("/deleteFile",arraySent)
+                 .then(res=>{
+                    console.log(res)
+                 })
+                 .catch(error=>{
+                    console.log(error)
+                 })
+        }
+    },
+    mounted(){
+        this.selectvalues()
+    },
+ })   
+</script>
+
+</body>
+</html>

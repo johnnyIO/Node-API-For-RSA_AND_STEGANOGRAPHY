@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Mail</title>
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <style>
+        body{
+            background-image:url('../public/graduate.jpg');
+            background-repeat:no-repeat;
+            /* background-position: cover; */
+            background-size: cover;
+        }
+        footer{
+            position:relative;
+            margin-top: 42px;
+            bottom: 0;
+            height:60px;
+            width: 100%;
+        }
+        .container_back{
+            background-color:rgba(249, 249, 250, 0.9)
+            
+        }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand text-white" href="/examinerhomepage" >EQ</a> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand text-white" href="/admindashboard" >Back</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                      
+                      
+                    </ul>
+                    
+                  </div>
+                 
+                </div>
+                <div class="nav-item">
+                  <a class="nav-link text-light" href="/addlecturer"></a>
+                </div>
+        
+                <li class="nav-item d-flex">
+                  
+                </li>
+              </nav>
+            
+          </div>
+         
+        </div>
+        <li class="nav-item d-flex">
+        </li>
+      </nav>
+
+      <div class="conatiner muted w-75 px-5 py-5 mx-auto mt-2 mb-2" id="email">
+        <div v-if="successMsg" class="alert alert-success">{{successMsg}}</div>
+        <div v-if="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+        <label for="" class="mb-2">Select Department</label>
+        <select  v-model="emailTo"  class="form-control w-50">
+          <option v-for="email in emails" >{{email}}</option>
+        </select>
+        <input type="file" name="" id="" class="form-control w-50 mt-2" @change="choosedFile">
+        <button class="btn btn-md btn-success rounded-sm mt-3" @click="fireUp">Send CipherText</button>
+      </div>
+   
+</body>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+<script>
+  var vue = new Vue({
+
+    el:"#email",
+
+    data:{
+      emails:"",
+      emailTo:"",
+      selectedFile:"",
+      errorMsg:"",
+      successMsg:"",
+
+    },
+
+    methods:{
+      autopickmails(){
+        axios.get("/autopopulateEmail")
+             .then(res=>{
+              this.emails = res.data.email
+             })
+             .catch(error=>{
+              console.log(error)
+             })
+      },
+
+      choosedFile(e)
+      {
+        try {
+            let input = e.target.files[0]
+            // console.log(input)
+            this.selectedFile = e.target.files[0]
+
+        //     let fileReader = new FileReader()
+        //     fileReader.addEventListener("load",()=>{
+        //         this.imgUrl = fileReader.result
+        //         this.fileIsSet = true
+        //     })
+
+        // fileReader.readAsDataURL(input)
+        } catch (error) {
+            alert(error)
+        }
+      },
+
+      fireUp(){
+        if(this.selectedFile === "" && this.emailTo === ""){
+         alert("Please make sure you fill all the entries")
+          return
+        }
+
+        // console.log(this.emailTo)
+        
+        let formData = new FormData()
+        formData.append('emailFile', this.selectedFile)
+        formData.append('emailgoingTo', this.emailTo)
+        axios.post('/sendEmailMessage', formData)
+             .then(res=>{
+                if(res.data.status)
+                {
+                  this.successMsg = res.data.message
+                }
+                else
+                {
+                  this.errorMsg = res.data.message
+                }
+             })
+             .catch(error=>{
+                console.log(error)
+             })
+      },
+    },
+
+    mounted(){
+      this.autopickmails()
+    },
+  })
+</script>
+</html>

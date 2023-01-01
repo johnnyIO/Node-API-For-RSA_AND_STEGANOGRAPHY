@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel=""/> -->
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Transcript</title>
+
+    <style>
+        body{
+            background-image:url('../public/fed_ploy.jpeg');
+            background-repeat:no-repeat;
+            /* background-position: cover; */
+            background-size: cover;
+        }
+        footer{
+            position:relative;
+            margin-top: 42px;
+            bottom: 0;
+            height:60px;
+            width: 100%;
+        }
+        .container_back{
+            background-color:rgba(249, 249, 250, 0.9)
+            
+        }
+      </style>
+</head>
+<body style="background-color:rgb(237, 235, 235);">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand text-white" href="/examinerhomepage" >EQ</a> -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+            <div class="container-fluid">
+              <!-- <a class="navbar-brand text-white" href="/lecturerhomepage" >Home</a> -->
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link text-light"  href="/trans_requser">Back</a>
+                  </li>
+                      
+                  
+                </ul>
+                
+              </div>
+             
+            </div>
+            <div class="nav-item">
+              <a class="nav-link text-light" href="/addlecturer"></a>
+            </div>
+    
+            <li class="nav-item d-flex">
+              
+            </li>
+          </nav>
+        
+      </div>
+     
+    </div>
+    <li class="nav-item d-flex">
+
+    </li>
+  </nav>
+
+    <div class="container mx-auto shadow-lg border bg-muted  p-5 mt-5 rounded container_back" id="addnew">
+       
+       
+
+        <div class="row ">
+            
+                <img :src="choosedFile" alt=""  class="mx-auto w-75 h-75 mt-4 mb-4">
+            
+        </div>
+
+
+        
+       
+       
+        <!-- <button @click="decode">Decode</button> -->
+        
+    </div>
+</body>
+<footer class="footer bg-dark text-white">
+    <div class="row py-1">
+      <div class="col-md-6 text-center py-2" style="font-family:cursive;">
+          <div class="text-center" style="font-family:cursive;">
+              All Copy Right &copy; Reserved 
+          </div> 
+         
+      </div>
+      <div class="col-md-6 py-2">
+          <div class="text-center" style="font-family:cursive;">
+              <!-- Developed by group 36 -->
+          </div> 
+      </div>
+    </div> 
+  </footer>
+
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+<script src="../public/steganography.min.js"></script>
+
+<script>
+   var imageUri;
+   var imageUri2;
+   var imageUripdf;
+   var steno;
+   var vue = new Vue({
+     el:"#addnew",
+     data:{
+        choosedFile:"",
+        encodedFile:"",
+        testFile:"",
+        base64Value:"",
+        toBeDecoded:"",
+       imagePath:"",
+
+     },
+     methods:{
+
+       encode(){
+       
+        
+        if(this.testFile !== "" && this.choosedFile !=="")
+        {
+            axios.post("/hidetext", {file:this.testFile, image:this.choosedFile})
+                 .then(res=>{
+
+                 })
+                 .catch(error=>{
+
+                 })
+        }
+        else{
+
+        }
+        
+
+        
+       },
+
+       pickedListener(e){
+
+            let input = e.target.files[0]
+            let formData = new FormData()
+            formData.append("file_image", input)
+            
+            let allowedTypes = ['jpg','png','jpeg']
+            let inputType = input.type.split('/')
+            let actualExt = inputType[1]
+
+            if(allowedTypes.includes(actualExt)){
+                axios.post("/generate_imagePath",formData,{'Content-Type':'multipart/forma-data'})
+                 .then(res=>{
+                    this.choosedFile = res.data.imagepath
+                 })
+                 .catch(error=>{
+                    console.log(error)
+                 })
+            }
+            else
+            {
+                alert('not allowed')
+                console.log(actualExt)
+            }
+
+       },
+
+       pickedListener2(e){
+
+            let input = e.target.files[0]
+            let formData = new FormData()
+            formData.append("file", input)
+            axios.post("/generate_base64Readable",formData,{'Content-Type':'multipart/forma-data'})
+                 .then(res=>{
+                    this.testFile = res.data.filepath
+                    // console.log(res.data)
+                 })
+                 .catch(error=>{
+                    console.log(error)
+                 })
+       },
+
+
+
+
+
+
+       pickedListener3(e){
+            let input = e.target.files[0]
+            steno = e.target.files[0]
+
+            let filereader = new FileReader()
+            filereader.addEventListener("load",()=>{
+                this.toBeDecoded = filereader.result
+                imageUri2 = filereader.result
+                // console.log(this.choosedFile)
+            })
+
+            filereader.readAsDataURL(input)
+            
+       },
+
+decode(){
+         
+        
+       if(steno !== "")
+       {
+        let formData = new FormData()
+        formData.append("steno", steno)
+
+        axios.post("/retrievtext",formData,{'Content-Type':'multipart/form-data'})
+             .then(res=>{
+                console.log(res.data)
+             })
+             .catch(error=>{
+                console.log(error)
+             })
+        
+       }
+
+       },
+
+       picturePull(){
+        let pickPicture = localStorage.getItem("checkdocument_for")
+        this.choosedFile = pickPicture
+        // console.log(pickPicture)
+       },
+    },
+
+    mounted(){
+        this.picturePull()
+    }
+ 
+   })
+</script>
+
+</html>

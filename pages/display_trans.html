@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel=""/> -->
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Transcript</title>
+    <style>
+      body,html{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      font-family: sans-serif;
+      background-image: url("../public/graduate.jpg");
+      background-size: cover;
+      
+    }
+
+    .box {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-between;
+}
+    .holder{
+      background-color:rgba(249, 249, 250, 0.9)
+    }
+    .Section_top{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background-image: url("../public/fed_ploy.jpeg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      text-align: center;
+      justify-content: center;
+      animation: change 10s infinite ease-in-out;
+    }
+    .content{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+    
+    }
+    .content h1{
+      color: #fff;
+      font-size: 60px;
+      letter-spacing: 15px;
+    }
+    .content h1 span{
+      color: #111;
+    }
+    .content a{
+      background: #85c1ee;
+      padding: 10px 24px;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 20px;
+    }
+    .content a:hover{
+      background: #034e88;
+      color: #fff;
+    }
+    
+</style>
+</head>
+<body style="background-color:rgb(237, 235, 235);">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse align-content-left" id="navbarNav">
+        <ul class="navbar-nav ">
+          
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/admindashboard">Back</a>
+          </li>
+
+
+        </ul>
+        
+      </div>
+     
+    </div>
+  
+
+    
+  </nav>
+
+    <div class="container mx-auto shadow-lg border bg-muted w-100 p-5 mt-5 rounded holder">
+        
+       <div id="signin">
+
+          
+
+        
+
+        <div class="mx-auto wrap" >
+                  
+            <div class="text-center">
+                <img src="../public/logo_bida.jfif" class="mb-3" style="width:5%; height:5%;" alt="">
+                <h3>FEDERAL POLYTECHNIC, BIDA</h3>
+                <h6>(Office Of the Registra)</h6>
+                <h5 class="mt-5">ACADAMIC AFFAIRS DIVISION</h5>
+
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6" style="">
+                  <div>REF:FPB/REC/ESS/12/73603</div>
+                  <div>THE REGISTRAR,</div>
+                  <div>STATE POLYTECHNIC,</div>
+                  <div>KADUNA,</div>
+                  <div>KADUNA STATE,</div>
+                  <div>Dear Sir/Madam,</div>
+                </div>
+                
+                <div class="col-md-6 px-5" style="text-align:end;">
+                    <div class="" >
+                        Date: <span id="date_of_generation"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" row text-center mt-5">
+                <p>CONFIDENTIAL</p>
+                <p>OFFICIAL TRANSCRIPT OF ACADEMIC RECORD OF </p>
+            </div>
+
+            <div class="row">
+                <p>At the request of Mr/Miss ------------------------- <span id="name">{{firstname}} {{lastname}}</span>-------------------------------------- I forward herewith a copy of his/her official transcript of addmission</p>
+
+            </div>
+
+            <div class="row">
+                <p>
+                    <div>Yours Faithfully,</div>
+                    <div>MOHAMMED SAIDU</div>
+                    <div>SAR(EXAMS AND RECORD)</div>
+                    <div>For:</div>
+                    <div>The Federal Polytechnic</div>
+                    <div>P.M.B. 55</div>
+                    <div>Bida</div>
+                </p>
+
+                <div class="row mt-5">
+                   <div>Name:_________________________________ <span>{{lastname}}</span> __________________________<span>{{firstname}}</span> __________________________</div>
+                   <div><span>Matric No: {{matricno}}</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>(Surname)</span> _________________ <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>&nbsp;</span> <span>(Othername)</span> ____________</div>
+                </div>
+
+                <div class="row mt-5">
+                    <div>Nationality:_________________ _________________<span>Date Addmitted:</span> ________ _________ <span>Left</span>_____________ ______________</div> 
+                   
+                 </div>
+
+                 <div class="row mt-5">
+                    <div>Department:_________________________________ <span>{{department}}</span> __________________________</div>
+                   
+                 </div>
+
+            </div>
+            
+
+            <div class="row mt-5 ">
+                <div style="font-weight:bold;"><p class="font-weight-bold">First Semester</p></div>
+                <table class="py-2">
+                    <thead>
+                        <tr style="font-weight:bold;">
+                            <td class="text-center">
+                               Course Code
+                            </td>
+                            <td class="text-center">
+                                Course Title
+                            </td>
+        
+                            <td class="text-center">
+                                Raw Marks
+                            </td>
+        
+                            <td class="text-center">
+                                Course Unit
+                            </td>
+        
+                            <td class="text-center">
+                                Grade Point
+                            </td>
+        
+                           
+        
+                        </tr>
+                    </thead>
+                    <tr class="text-center" >
+                        <td>{{course_code1}}</td>
+                        <td>{{course_title1}}</td>
+                        <td>{{raw_mark1}}</td>
+                        <td>{{course_unit1}}</td>
+                        <td >{{grade_point1}}</td>
+    
+                    </tr>
+                    
+                    
+                        
+        
+                </table>
+
+                
+            </div>
+
+            <div class="row mt-5 ">
+                <div style="font-weight:bold;"><p class="font-weight-bold">Second Semester</p></div>
+                <table class="py-2">
+                    <thead>
+                        <tr style="font-weight:bold;">
+                            <td class="text-center">
+                               Course Code
+                            </td>
+                            <td class="text-center">
+                                Course Title
+                            </td>
+        
+                            <td class="text-center">
+                                Raw Marks
+                            </td>
+        
+                            <td class="text-center">
+                                Course Unit
+                            </td>
+        
+                            <td class="text-center">
+                                Grade Point
+                            </td>
+        
+                           
+        
+                        </tr>
+                    </thead>
+                    <tr class="text-center" >
+                        <td>{{course_code2}}</td>
+                        <td>{{course_title2}}</td>
+                        <td>{{raw_mark2}}</td>
+                        <td>{{course_unit2}}</td>
+                        <td >{{grade_point2}}</td>
+    
+                    </tr>
+                    
+                    
+                        
+        
+                </table>
+
+                
+            </div>
+
+            <div class="row mt-5 ">
+                <div style="font-weight:bold;"><p class="font-weight-bold">Third Semester</p></div>
+                <table class="py-2">
+                    <thead>
+                        <tr style="font-weight:bold;">
+                            <td class="text-center">
+                               Course Code
+                            </td>
+                            <td class="text-center">
+                                Course Title
+                            </td>
+        
+                            <td class="text-center">
+                                Raw Marks
+                            </td>
+        
+                            <td class="text-center">
+                                Course Unit
+                            </td>
+        
+                            <td class="text-center">
+                                Grade Point
+                            </td>
+        
+                           
+        
+                        </tr>
+                    </thead>
+                    <tr class="text-center" >
+                        <td>{{course_code3}}</td>
+                        <td>{{course_title3}}</td>
+                        <td>{{raw_mark3}}</td>
+                        <td>{{course_unit3}}</td>
+                        <td >{{grade_point3}}</td>
+    
+                    </tr>
+                    
+                    
+                        
+        
+                </table>
+
+                
+            </div>
+
+            <div class="row mt-5 ">
+                <div style="font-weight:bold;"><p class="font-weight-bold">Fourth Semester</p></div>
+                <table class="py-2">
+                    <thead>
+                        <tr style="font-weight:bold;">
+                            <td class="text-center">
+                               Course Code
+                            </td>
+                            <td class="text-center">
+                                Course Title
+                            </td>
+        
+                            <td class="text-center">
+                                Raw Marks
+                            </td>
+        
+                            <td class="text-center">
+                                Course Unit
+                            </td>
+        
+                            <td class="text-center">
+                                Grade Point
+                            </td>
+        
+                           
+        
+                        </tr>
+                    </thead>
+                    <tr class="text-center" >
+                        <td>{{course_code4}}</td>
+                        <td>{{course_title4}}</td>
+                        <td>{{raw_mark4}}</td>
+                        <td>{{course_unit4}}</td>
+                        <td >{{grade_point4}}</td>
+    
+                    </tr>
+                    
+                    
+                        
+        
+                </table>
+
+                
+            </div>
+            
+        
+        </div>
+        <div class="row mt-5">
+            <button @click="pdfGen" class="btn btn-danger w-25"> <i class="bi bi-file-pdf"></i> Save As PDF </button>
+        </div>
+       
+       </div>
+    </div>
+</body>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+<script>
+ 
+ var vue = new Vue({
+    el:"#signin",
+    data:{
+      
+      firstname:"",
+      lastname:"",
+      matricno:"",
+      department:"",
+      course_code1:"",
+      course_code2:"",
+      course_code3:"",
+      course_code4:"",
+      course_title1:"",
+      course_title2:"",
+      course_title3:"",
+      course_title4:"",
+      raw_mark1:"",
+      raw_mark2:"",
+      raw_mark3:"",
+      raw_mark4:"",
+      course_unit1:"",
+      course_unit2:"",
+      course_unit3:"",
+      course_unit4:"",
+      course_unit5:"",
+      grade_point1:"",
+      grade_point2:"",
+      grade_point3:"",
+      grade_point4:"",
+      grade_point5:"",        
+      selectedvalue:"",
+      pass_word:"",
+      user_name:"",
+      errorMessage:"",
+      fillAll:"",
+      successMsg:"",
+      success:false,
+      fillError:false,
+      wrongDetails:false
+
+    },
+    methods:{
+      signin(){
+        // e.preventDefault()
+        
+        
+        let password = this.pass_word
+        let username = this.user_name
+        
+      
+        axios.post("/adminsignin",{password,username})
+             .then(res=>{
+
+              if(res.data.status){
+                // console.log(res.data)
+                this.success = true
+                this.successMsg = `Login was succsessfull please wait, while you are redirected `
+                this.wrongDetails = false
+                this.errorMessage = ""
+                setTimeout(()=>{
+                  window.location.href="/admindashboard"
+                  this.successMsg =""
+                  this.success = false
+                },3000)
+              }
+
+              if(res.data.errorEmpty){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+
+              if(res.data.errorIncorrect){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+              
+            
+             })
+             .catch(error=>{
+              console.log(error);
+             })
+
+      },
+
+      pdfGen(){
+        window.print()
+      }
+
+
+     
+    },
+
+    mounted(){
+        let date = new Date() 
+        let date_of_trans = document.querySelector("#date_of_generation")
+        date_of_trans.innerHTML = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+        let grades = JSON.parse(localStorage.getItem('transcript'))
+        
+        this.firstname = grades.firstname
+        this.lastname =  grades.lastname
+        this.matricno = grades.matricno
+        this.department = grades.department
+
+        this.grade_point1 = grades.grade_point1
+        this.grade_point2 = grades.grade_point2
+        this.grade_point3 = grades.grade_point3
+        this.grade_point4 = grades.grade_point4
+
+        this.course_code1 = grades.course_code1
+        this.course_code2 = grades.course_code2
+        this.course_code3 = grades.course_code3
+        this.course_code4 = grades.course_code4
+
+        this.course_title1 = grades.course_title1
+        this.course_title2 = grades.course_title2
+        this.course_title3 = grades.course_title3
+        this.course_title4 = grades.course_title4
+
+        this.course_unit1 = grades.course_unit1
+        this.course_unit2 = grades.course_unit2
+        this.course_unit3 = grades.course_unit3
+        this.course_unit4 = grades.course_unit4
+
+        this.raw_mark1 = grades.raw_mark1
+        this.raw_mark2 = grades.raw_mark2
+        this.raw_mark3 = grades.raw_mark3
+        this.raw_mark4 = grades.raw_mark4
+
+        console.log(this.grade_point2)
+      },
+        
+ })
+</script>
+
+</html>

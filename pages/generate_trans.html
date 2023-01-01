@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel=""/> -->
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Transcript</title>
+    <style>
+      body,html{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      font-family: sans-serif;
+      background-image: url("../public/graduate.jpg");
+      background-size: cover;
+      
+    }
+
+    .box {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  align-content: space-between;
+}
+    .holder{
+      background-color:rgba(249, 249, 250, 0.9)
+    }
+    .Section_top{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background-image: url("../public/fed_ploy.jpeg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      text-align: center;
+      justify-content: center;
+      animation: change 10s infinite ease-in-out;
+    }
+    .content{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+    
+    }
+    .content h1{
+      color: #fff;
+      font-size: 60px;
+      letter-spacing: 15px;
+    }
+    .content h1 span{
+      color: #111;
+    }
+    .content a{
+      background: #85c1ee;
+      padding: 10px 24px;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 20px;
+    }
+    .content a:hover{
+      background: #034e88;
+      color: #fff;
+    }
+    
+</style>
+</head>
+<body style="background-color:rgb(237, 235, 235);">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse align-content-left" id="navbarNav">
+        <ul class="navbar-nav ">
+          
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/admindashboard">Back</a>
+          </li>
+
+
+        </ul>
+        
+      </div>
+     
+    </div>
+  
+
+    
+  </nav>
+
+    <div class="container mx-auto shadow-lg border bg-muted w-100 p-5 mt-5 rounded holder">
+        <h4 class="text-center">Generate Transcript </h4>
+       <div id="signin">
+
+          <div class="alert alert-danger text-center" v-if="fillError">
+            <p>{{fillAll}}</p>
+         </div>
+
+         <div class="alert alert-danger text-center" v-if="wrongDetails">
+          <p>{{errorMessage}}</p>
+        </div>
+
+        
+
+        <div class="mx-auto wrap " >
+
+          <div class="row mt-2 mb-4 py-4 px-4 border shadow-lg">
+              <div class="col-md-6">
+                <label for="">First name</label>
+                <input type="text" readonly class="form-control" v-model="firstname" id="" placeholder="">
+                <label for="">Last name</label>
+                <input type="text" readonly class="form-control" v-model="lastname" id="" placeholder="">
+              </div>
+              <div class="col-md-6">
+                <label for="">Matric No</label>
+                <input type="text" readonly class="form-control" v-model="matric_no" id="" placeholder="">
+                <label for="">Department</label>
+                <input type="text" readonly class="form-control" v-model="department" id="" placeholder="">
+              </div>
+          </div>
+                  
+            <!-- <div class="row">
+                <div class="col-md">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div> -->
+            
+            <!-- <div class="box">
+                <div>
+                    <select class="form-control">
+                        <option>1</option>
+                    </select>
+                </div>
+                <div>
+                    <select>
+                        <option>
+                            com111
+                        </option>
+                    </select>
+                </div>
+                <div>Three</div>
+                <div>Four</div>
+                <div>Five</div>
+                <div>Six</div>
+                <div>Seven</div>
+                <div>Eight</div>
+              </div> -->
+        <div class="fs-lg my-2">First Semester</div>
+         <table class="py-2">
+            <thead>
+                <tr>
+                    <td class="text-center">
+                       Course Code
+                    </td>
+                    <td class="text-center">
+                        Course Title
+                    </td>
+
+                    <td class="text-center">
+                        Raw Marks
+                    </td>
+
+                    <td class="text-center">
+                        Course Unit
+                    </td>
+
+                    <td class="text-center">
+                        Grade Point
+                    </td>
+
+                   
+
+                </tr>
+            </thead>
+            <tr>
+                <td><input v-model="course_code1" type="text" class="form-control"></td>
+                <td><input v-model="course_title1" type="text" class="form-control"></td>
+                <td><input v-model="raw_mark1" type="text" class="form-control"></td>
+                <td>
+                    <select v-model="course_unit1" class="form-control">
+                        <option >1</option>
+                        <option >2</option>
+                        <option >3</option>
+                        <option >4</option>
+                        <option >5</option>
+                        <option >6</option>
+                    </select>
+                </td>
+                <td >
+                    <select v-model="grade_point1" id="gradePoint" class="form-control">
+                        <option >A</option>
+                        <option >AB</option>
+                        <option >B</option>
+                        <option >BC</option>
+                        <option >C</option>
+                        <option >CD</option>
+                        <option >E</option>
+                        <option >F</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            
+            
+                
+
+         </table>
+         <div>
+            <div class="fs-lg my-2">Second Semester</div>
+         </div>
+         <table class="py-2">
+
+            <thead>
+                <tr>
+                    <td class="text-center">
+                       Course Code
+                    </td>
+                    <td class="text-center">
+                        Course Title
+                    </td>
+
+                    <td class="text-center">
+                        Raw Marks
+                    </td>
+
+                    <td class="text-center">
+                        Course Unit
+                    </td>
+
+                    <td class="text-center">
+                        Grade Point
+                    </td>
+
+                   
+
+                </tr>
+            </thead>
+            <tr>
+                <td><input v-model="course_code2" type="text" class="form-control"></td>
+                <td><input v-model="course_title2" type="text" class="form-control"></td>
+                <td><input v-model="raw_mark2" type="text" class="form-control"></td>
+                <td>
+                    <select v-model="course_unit2" class="form-control">
+                        <option >1</option>
+                        <option >2</option>
+                        <option >3</option>
+                        <option >4</option>
+                        <option >5</option>
+                        <option >6</option>
+                    </select>
+                </td>
+                <td >
+                    <select v-model="grade_point2" id="gradePoint" class="form-control">
+                        <option >A</option>
+                        <option >AB</option>
+                        <option >B</option>
+                        <option >BC</option>
+                        <option >C</option>
+                        <option >CD</option>
+                        <option >E</option>
+                        <option >F</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            
+            
+
+         </table>
+         <div class="fs-lg my-2">Third Semester</div>
+         <table class="py-2">
+            <thead>
+                <tr>
+                    <td class="text-center">
+                       Course Code
+                    </td>
+                    <td class="text-center">
+                        Course Title
+                    </td>
+
+                    <td class="text-center">
+                        Raw Marks
+                    </td>
+
+                    <td class="text-center">
+                        Course Unit
+                    </td>
+
+                    <td class="text-center">
+                        Grade Point
+                    </td>
+
+                   
+
+                </tr>
+            </thead>
+            <tr>
+                <td><input v-model="course_code3" type="text" class="form-control"></td>
+                <td><input v-model="course_title3" type="text" class="form-control"></td>
+                <td><input v-model="raw_mark3" type="text" class="form-control"></td>
+                <td>
+                    <select v-model="course_unit3" class="form-control">
+                        <option >1</option>
+                        <option >2</option>
+                        <option >3</option>
+                        <option >4</option>
+                        <option >5</option>
+                        <option >6</option>
+                    </select>
+                </td>
+                <td >
+                    <select v-model="grade_point3" id="gradePoint" class="form-control">
+                        <option >A</option>
+                        <option >AB</option>
+                        <option >B</option>
+                        <option >BC</option>
+                        <option >C</option>
+                        <option >CD</option>
+                        <option >E</option>
+                        <option >F</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            
+            
+                
+
+         </table>
+         <div class="fs-lg my-2">Fourth Semester</div>
+         <table class="py-2">
+            <thead>
+                <tr>
+                    <td class="text-center">
+                       Course Code
+                    </td>
+                    <td class="text-center">
+                        Course Title
+                    </td>
+
+                    <td class="text-center">
+                        Raw Marks
+                    </td>
+
+                    <td class="text-center">
+                        Course Unit
+                    </td>
+
+                    <td class="text-center">
+                        Grade Point
+                    </td>
+
+                   
+
+                </tr>
+            </thead>
+            <tr>
+                <td><input v-model="course_code4" type="text" class="form-control"></td>
+                <td><input v-model="course_title4" type="text" class="form-control"></td>
+                <td><input v-model="raw_mark4" type="text" class="form-control"></td>
+                <td>
+                    <select v-model="course_unit4" class="form-control">
+                        <option >1</option>
+                        <option >2</option>
+                        <option >3</option>
+                        <option >4</option>
+                        <option >5</option>
+                        <option>6</option>
+                    </select>
+                </td>
+                <td >
+                    <select v-model="grade_point4" id="gradePoint" class="form-control">
+                        <option >A</option>
+                        <option >AB</option>
+                        <option >B</option>
+                        <option >BC</option>
+                        <option >C</option>
+                        <option >CD</option>
+                        <option >E</option>
+                        <option >F</option>
+                    </select>
+                </td>
+
+
+            </tr>
+            
+            
+
+         </table>
+         
+        </div>
+        <div class="row mt-5">
+            <button @click="btnGenerate" class="btn btn-info w-50"> Generate</button>
+        </div>
+        <div class="alert alert-success text-center mt-2" v-if="success">
+          <p>{{successMsg}}</p>
+        </div>
+       </div>
+    </div>
+</body>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+<script>
+ var vue = new Vue({
+    el:"#signin",
+    data:{
+      course_code1:"",
+      course_code2:"",
+      course_code3:"",
+      course_code4:"",
+      course_title1:"",
+      course_title2:"",
+      course_title3:"",
+      course_title4:"",
+      raw_mark1:"",
+      raw_mark2:"",
+      raw_mark3:"",
+      raw_mark4:"",
+      course_unit1:"",
+      course_unit2:"",
+      course_unit3:"",
+      course_unit4:"",
+      course_unit5:"",
+      grade_point1:"",
+      grade_point2:"",
+      grade_point3:"",
+      grade_point4:"",
+      grade_point5:"",        
+      selectedvalue:"",
+      pass_word:"",
+      user_name:"",
+      errorMessage:"",
+      fillAll:"",
+      successMsg:"",
+      success:false,
+      fillError:false,
+      wrongDetails:false,
+      firstname:"",
+      lastname:"",
+      department:"",
+      matric_no:"",
+    },
+    methods:{
+      signin(){
+        // e.preventDefault()
+        
+        
+        let password = this.pass_word
+        let username = this.user_name
+        
+      
+        axios.post("/adminsignin",{password,username})
+             .then(res=>{
+
+              if(res.data.status){
+                // console.log(res.data)
+                this.success = true
+                this.successMsg = `Login was succsessfull please wait, while you are redirected `
+                this.wrongDetails = false
+                this.errorMessage = ""
+                setTimeout(()=>{
+                  window.location.href="/admindashboard"
+                  this.successMsg =""
+                  this.success = false
+                },3000)
+              }
+
+              if(res.data.errorEmpty){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+
+              if(res.data.errorIncorrect){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+              
+            
+             })
+             .catch(error=>{
+              console.log(error);
+             })
+
+      },
+
+
+      btnGenerate(){
+
+        if(
+            this.course_code1 !== "" && 
+            this.course_code2 !== "" &&
+            this.course_code3 !== "" &&
+            this.course_code4 !== "" &&
+            this.course_title1 !== ""&&
+            this.course_title2 !== ""&&
+            this.course_code3 !== "" &&
+            this.course_title4 !== ""&&
+            this.course_unit1 !== "" &&
+            this.course_unit2 !== "" &&
+            this.course_unit3 !== "" &&
+            this.course_unit4 !== "" &&
+            this.grade_point1 !== "" &&
+            this.grade_point2 !== "" &&
+            this.grade_point3 !== "" &&
+            this.grade_point4 !== "" &&
+            this.raw_mark1 !== "" &&
+            this.raw_mark2 !== "" &&
+            this.raw_mark3 !== "" &&
+            this.raw_mark4 !== ""
+
+        ){
+
+          const obj = {
+            firstname:this.firstname,
+            lastname:this.lastname,
+            department:this.department,
+            matricno:this.matric_no,
+            course_code1:this.course_code1,   
+            course_code2:this.course_code2, 
+            course_code3:this.course_code3,  
+            course_code4:this.course_code4,  
+            course_title1:this.course_title1, 
+            course_title2:this. course_title2, 
+            course_title3:this.course_title3,  
+            course_title4:this. course_title4, 
+            course_unit1:this.course_unit1, 
+            course_unit2:this.course_unit2,  
+            course_unit3:this.course_unit3,
+            course_unit4:this.course_unit4,
+            grade_point1:this.grade_point1, 
+            grade_point2:this.grade_point2,  
+            grade_point3:this.grade_point3,  
+            grade_point4:this.grade_point4, 
+            raw_mark1:this.raw_mark1, 
+            raw_mark2:this.raw_mark2,  
+            raw_mark3:this.raw_mark3,  
+            raw_mark4:this.raw_mark4, 
+        }
+
+        localStorage.setItem("transcript", JSON.stringify(obj))
+        window.location.href="/display_trans"
+
+
+        }else{
+          this.fillAll = "Please provide all fields with the needed values "
+          this.fillError = true
+        }
+  
+      },
+
+      autoPick(){
+        if(localStorage.getItem("generate_for") !== ""){
+          let matno = localStorage.getItem("generate_for")
+          console.log(matno)
+          axios.post("/get_userdetails",{matric_no:matno})
+               .then(res=>{
+                   if(res.data.status && res.data.details !== null){
+                    this.firstname = res.data.details.first_name.toUpperCase()
+                    this.lastname = res.data.details.last_name.toUpperCase()
+                    this.department = res.data.details.department.toUpperCase()
+                    this.matric_no = res.data.details.matric_no.toUpperCase()
+                   }else{
+                    setTimeout(()=>{
+                      alert("No data was found for this person")
+                      window.location.href="/trans_requser"
+                    },3000)
+                   }
+                  console.log(res.data)
+               })
+               .catch(error=>{
+                 console.log(error)
+               })
+          // console.log(localStorage.getItem("generate_for"))
+          // this.firstname = res.data
+          
+        }else{
+          window.location.href="/trans_requser"
+        }
+        
+      },
+    },
+
+    mounted(){
+      this.autoPick()
+    }
+ })
+</script>
+
+</html>

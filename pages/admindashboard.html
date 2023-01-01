@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel=""/> -->
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Transcript</title>
+    <style>
+      body,html{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      font-family: sans-serif;
+      background-image: url("../public/graduate.jpg");
+      background-size: cover;
+      
+    }
+    .holder{
+      background-color:rgba(249, 249, 250, 0.9)
+    }
+    .Section_top{
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background-image: url("../public/fed_ploy.jpeg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      text-align: center;
+      justify-content: center;
+      animation: change 10s infinite ease-in-out;
+    }
+    .content{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+    
+    }
+    .content h1{
+      color: #fff;
+      font-size: 60px;
+      letter-spacing: 15px;
+    }
+    .content h1 span{
+      color: #111;
+    }
+    .content a{
+      background: #85c1ee;
+      padding: 10px 24px;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 20px;
+    }
+    .content a:hover{
+      background: #034e88;
+      color: #fff;
+    }
+    @keyframes change{
+      0%
+      {
+          background-image: url("../public/acada.jpg");
+      }
+      20%
+      {
+          background-image: url("../public/fed_ploy.jpeg");
+      }
+      40%
+      {
+          background-image: url("../public/lib.jpg");
+      }
+      60%
+      {
+          background-image: url("../public/lib.jpg");
+      }
+      80%
+      {
+          background-image: url("../public/fed_ploy.jpeg");
+      }
+      100%
+      {
+          background-image: url();
+      }
+    }
+      </style>
+</head>
+<body style="background-color:rgb(237, 235, 235);">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="/admindashboard" >Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse align-content-left" id="navbarNav">
+        <ul class="navbar-nav ">
+          
+          <li class="nav-item">
+            <!-- <a class="nav-link text-light" href="#">View Acknowledgements</a> -->
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/trans_requser">Transcript Request</a>
+          </li>
+
+          <li class="nav-item">
+            <!-- <a class="nav-link text-light" href="#">Share Transcript</a> -->
+          </li>
+
+          <li class="nav-item">
+            
+            <div class="dropdown">
+                <a class="nav-link text-light dropdown-toggle btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Lock</a>
+                
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li> <a class="dropdown-item" href="/secure_trans">Using RSA</a></li>
+                  <li> <a class="dropdown-item" href="/stega">Using Steganography</a></li>
+                </ul>
+            </div>
+         </li>
+
+
+          <li class="nav-item">
+            <!-- <a class="nav-link text-light" href="/unlock_trans">Unlock Transcript</a> -->
+          </li>
+
+          <li class="nav-item">
+            <!-- <a class="nav-link text-light" href="/keygen">Key Gen</a> -->
+          </li>
+          
+
+          <li class="nav-item">
+            <a class="nav-link text-light"  href="/sendmail">Send Email</a>
+            <!-- <div class="dropdown">
+                <a class="nav-link text-light dropdown-toggle btn"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Generate Transcript</a>
+                
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">ND</a></li>
+                  <li><a class="dropdown-item" href="/generate_trans">HND</a></li>
+                  
+                </ul>
+            </div> -->
+         </li>
+
+          
+        </ul>
+        
+      </div>
+     
+    </div>
+  
+
+    <li class="nav-item d-flex">
+      <a href="/" class="btn btn-secondary btn-sm mx-2" href="#" tabindex="-1" aria-disabled="true" @click="logout">
+        Logout
+    </a>
+    </li>
+  </nav>
+
+    <div class="container mx-auto shadow-lg border bg-muted w-50 p-5 mt-5 rounded holder">
+        <h4 class="text-center">Welcome Back</h4>
+       <div id="signin">
+
+          <div class="alert alert-danger text-center" v-if="fillError">
+            <p>{{fillAll}}</p>
+         </div>
+
+         <div class="alert alert-danger text-center" v-if="wrongDetails">
+          <p>{{errorMessage}}</p>
+        </div>
+
+        
+
+        <div class="mx-auto" >
+          <!-- <label for="" class="text-dark">Username</label>
+          <input type="email" v-model="user_name" placeholder="Enter Admin Username" name="" id="" class="form-control my-2" required>
+          <label for="">Password</label>
+          <input type="password" v-model="pass_word" placeholder="Enter Admin Password" class="form-control my-2" name="" id="" required> -->
+          <!-- <label for="">Role</label> -->
+          <!-- <select  v-model="selectedvalue"   class="form-control my-2" required>
+            <option >Examiner</option>
+            <option>Lecturer</option>
+          </select> -->
+          <!-- <button  @click="signin" class="btn btn-sm text-white" style="background-color:purple;">Sign In</button> -->
+         
+          
+
+        </div>
+        <div class="alert alert-success text-center mt-2" v-if="success">
+          <p>{{successMsg}}</p>
+        </div>
+       </div>
+    </div>
+</body>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+<script>
+ var vue = new Vue({
+    el:"#signin",
+    data:{
+      selectedvalue:"",
+      pass_word:"",
+      user_name:"",
+      errorMessage:"",
+      fillAll:"",
+      successMsg:"",
+      success:false,
+      fillError:false,
+      wrongDetails:false
+    },
+    methods:{
+      signin(){
+        // e.preventDefault()
+        
+        
+        let password = this.pass_word
+        let username = this.user_name
+        
+      
+        axios.post("/adminsignin",{password,username})
+             .then(res=>{
+
+              if(res.data.status){
+                // console.log(res.data)
+                this.success = true
+                this.successMsg = `Login was succsessfull please wait, while you are redirected `
+                this.wrongDetails = false
+                this.errorMessage = ""
+                setTimeout(()=>{
+                  window.location.href="/admindashboard"
+                  this.successMsg =""
+                  this.success = false
+                },3000)
+              }
+
+              if(res.data.errorEmpty){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+
+              if(res.data.errorIncorrect){
+                this.wrongDetails = true
+                this.errorMessage = res.data.errorMsg
+              }
+              
+            
+             })
+             .catch(error=>{
+              console.log(error);
+             })
+
+      }
+    }
+ })
+</script>
+
+</html>

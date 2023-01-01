@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link type="text/css" rel=""/> -->
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    <title>Transcript</title>
+
+    <style>
+        body{
+            background-image:url('../public/graduate.jpg');
+            background-repeat:no-repeat;
+            /* background-position: cover; */
+            background-size: cover;
+        }
+        footer{
+            position:relative;
+            margin-top: 42px;
+            bottom: 0;
+            height:60px;
+            width: 100%;
+        }
+        .container_back{
+            background-color:rgba(249, 249, 250, 0.9)
+            
+        }
+      </style>
+</head>
+<body style="background-color:rgb(237, 235, 235);">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand text-white" href="/examinerhomepage" >EQ</a> -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+            <div class="container-fluid">
+              <a class="navbar-brand text-white" href="/lecturerhomepage" >Back</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <!-- <li class="nav-item">
+                    <a class="nav-link text-light"  href="/login">Login</a>
+                  </li> -->
+                  
+    
+                  
+    
+                  <!-- <li class="nav-item">
+                    <a class="nav-link text-light" href="/addlecturer">Add New</a>
+                  </li> -->
+    
+                  <!-- <li class="nav-item">
+                    <a class="nav-link text-light" href="/reg">Register</a>
+                  </li> -->
+    
+                  
+    
+                  
+                </ul>
+                
+              </div>
+             
+            </div>
+            <div class="nav-item">
+              <a class="nav-link text-light" href="/addlecturer"></a>
+            </div>
+    
+            <li class="nav-item d-flex">
+              
+            </li>
+          </nav>
+        
+      </div>
+     
+    </div>
+    <li class="nav-item d-flex">
+      <!-- <a href="/logout" class="btn btn-secondary btn-sm mx-2" href="#" tabindex="-1" aria-disabled="true" @click="logout">
+        Logout
+    </a> -->
+    </li>
+  </nav>
+
+    <div class="container mx-auto shadow-lg border bg-muted w-75 p-5 mt-5 rounded container_back" id="addnew">
+        <h4 class="text-center mb-3">Decrypt Transcript</h4>
+         <div class="alert alert-danger text-center" v-if="errState" >
+          {{errorMessage}}
+         </div>
+
+         <div class="alert alert-success text-center" v-if="succState" >
+          {{successMessage}}
+         </div>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Choose A Locked CipherText</label>
+                    <input type="file"   class="form-control" @change="inputChanged_ciphertext" ref="imageRef"></select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="">Pick Private Key</label>
+                    <input type="file"   class="form-control" @change="onUploadPrivateKey" ref="choosePrivateKey"></select>
+                </div>
+            </div>
+
+            <div class="w-100 wrap row">
+                
+                <div class="col-md-6 mt-4">
+                    <label for="">CipherText</label>
+                    <textarea readonly v-model="ciphertext" cols="30" rows="10" class="  form-control"></textarea>
+                </div>
+                <!-- <button class="btn btn-sm mt-4 btn-success" @click="downloadFile">Download Cipher Text</button> -->
+                <div class="col-md-6 mt-4">
+                    <label for="">Private Key</label>
+                    <textarea readonly v-model="privatekey"   class="form-control " cols="30" rows="10">
+                </textarea>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                   <embed :src="testFile"  width="348px" height="248px"/>
+            </div>
+
+            <div class="row mt-5 text-center justify-content-between">
+                <button  class="btn btn-sm text-white mt-2 w-25" @click="decrypt_trans" style="background-color:purple;" >Decrypt</button>
+                <button v-if="testFile"  class="btn btn-sm text-white mt-2 w-25" @click="pdfDownload" style="background-color:rgb(35, 244, 98);" >Open and Download</button>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<footer class="footer bg-dark text-white">
+    <div class="row py-1">
+      <div class="col-md-6 text-center py-2" style="font-family:cursive;">
+          <div class="text-center" style="font-family:cursive;">
+              All Copy Right &copy; Reserved 
+          </div> 
+         
+      </div>
+      <div class="col-md-6 py-2">
+          <div class="text-center" style="font-family:cursive;">
+              <!-- Developed by group 36 -->
+          </div> 
+      </div>
+    </div> 
+  </footer>
+
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+
+<script>
+   var vue = new Vue({
+     el:"#addnew",
+     data:{
+         file:"",
+         filename:"",
+         ciphertext:"",
+         privatekey:"",
+         re_type:"",
+         role:"",
+         errorMessage:"",
+         successMessage:"",
+         succState:false,
+         errState:false,
+         testFile:""
+        //  testFile:"../public/uploaded/1658249820418.pdf"
+
+     },
+     methods:{
+       clear(){
+         
+       }, 
+
+       decrypt_trans(){
+        // console.log(this.privatekey)
+        if(this.privatekey !== "" && this.ciphertext !=="")
+        {
+          axios.post("/decrypt_trans",{"privatekey":this.privatekey, "ciphertext":this.ciphertext, "filename":this.filename})
+             .then(res=>{
+               this.testFile = res.data.generatedURL
+             })
+             .catch(err=>{
+                console.log(err)
+             })
+        }
+        else
+        {
+          this.errState = true
+          this.errorMessage = "Please provide the needed entries"
+        }
+       },
+
+       inputChanged_ciphertext(e){
+        
+         let ctext = e.target.files[0]
+        
+          let form = new FormData()
+          form.append("fileChoosed", ctext)
+          
+          axios.post("/fetch_cipher_trans", form , {"Content-Type":"multi-part/form-data"})
+               .then(res=>{
+                // this.testFile = `../public/uploaded/${res.data.filename}`
+                // testFile:"../public/uploaded/1658249820418.pdf"
+                // console.
+                this.ciphertext = res.data.ciphertext
+                this.filename = res.data.filename
+               })
+               .catch(err=>{
+                console.log(err)
+               })
+
+            //    console.log(this.re_type)
+       },
+
+       downloadFile(){
+
+        if(this.ciphertext !== ""){
+
+            var ciphertext = new File(
+            [this.ciphertext],
+            "transcript_cipher",
+            {type:"text/plain;charset=utf8"}
+            );
+            //Here is the function that saves the file 
+            saveAs(ciphertext);
+            }else{
+            alert("Error")
+            }
+
+
+       },
+        
+       
+       onUploadPrivateKey(e){
+        // console.log(this.$refs.choosePrivateKey.files[0])
+         let formData = new FormData()
+         formData.append("privatekey", this.$refs.choosePrivateKey.files[0])
+         axios.post("/uploadPrivateKey", formData, {headers:{"Content-Type":"multipart/form-data"}})
+              .then(res=>{
+                this.privatekey = res.data.privatekey
+                // console.log(publickey)
+              })
+              .catch(error=>{
+                console.log(error)
+              })
+       },
+
+       pdfDownload(){
+        window.open(this.testFile, '_blank')
+       },
+
+     }
+   })
+</script>
+
+</html>

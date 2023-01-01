@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/bootstrap.min.css">
+    
+
+    <title>Transcript</title>
+<style>
+    body{
+        background-image:url("../public/graduate.jpg");
+        background-size: cover;
+        background-color:rgba(134, 134, 137, 0.5);
+       
+    }
+
+    .cover_custom{
+        
+        background-color: #eeeef8db;
+        background-size: cover;
+        
+    }
+</style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand text-white" href="/examinerhomepage" >EQ</a> -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <!-- <li class="nav-item">
+            <a class="nav-link text-light"  href="/student">Dashboard</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/admindashboard">Back</a>
+          </li>
+
+          <!-- <li class="nav-item">
+            <a class="nav-link text-light" href="/viewlectures">Lecturer</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/addlecturer">Add New</a>
+          </li> -->
+
+          <!-- <li class="nav-item">
+            <a class="nav-link text-light" href="/keyrepoadmin">Key Repository</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/viewlectures">Secured Question</a>
+          </li> -->
+
+          
+        </ul>
+        
+      </div>
+     
+    </div>
+    <li class="nav-item d-flex">
+      <a href="/" class="btn btn-secondary btn-sm mx-2" href="#" tabindex="-1" aria-disabled="true" @click="logout">
+        Logout
+    </a>
+    </li>
+  </nav>
+
+      
+<div class="sub-cover">
+      
+      
+        <div id="vuecontainer">
+
+          <!-- <div class="alert alert-danger w-50 border mx-auto" >
+           
+          </div> -->
+          
+         <!-- <div class="alert alert-success w-50 border mx-auto mt-4" >
+         
+        </div> -->
+        
+
+        <div class="row px-5 mx-auto mt-5 border shadow-sm p-4 mb-3 cover_custom" >
+            <!-- <h4 class="text-center pt-3">Carefully Fill the Form Below</h4> -->
+            
+            <div class="row mx-auto w-50 justify-content-center mt-5">
+                <!-- <button class="btn btn-primary form-control w-50 "   data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    Upload File 
+                </button> -->
+              </div>
+
+              <table class="table table-bordered">
+                <tr>
+                  <thead>
+                    <th>S/N</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Matric Number</th>
+                    <th>Department</th>
+                    <th>Program</th>
+                    <th>Requesting School</th>
+                    <th>Requested On</th>
+                    <th>Uploaded Transcript</th>
+                    <th>Action</th>
+                  </thead>
+                </tr>
+                <tr v-for="(request, index) in result">
+                    <td>{{index+=1}}</td>
+                    <td>{{request.first_name.toUpperCase()}}</td>
+                    <td>{{request.last_name.toUpperCase()}}</td>
+                    <td>{{request.student_matno.toUpperCase()}}</td>
+                    <td>{{request.department.toUpperCase()}}</td>
+                    <td>{{request.program.toUpperCase()}}</td>
+                    <td>{{request.email.toUpperCase()}}</td>
+                    <td>{{request.date_of_upload.toUpperCase()}}</td>
+                    <td>
+                      <img :src="request.path_to_upload" 
+                      style="width:70px; height:50px; text-align:center; "
+                      class="border"
+                      >
+                    </td>
+                    <td >
+                      <!-- <a href="#" class="btn btn-sm btn-success d-block mt-2 mb-2" @click="accepted">Accept</a> -->
+                      <a @click="deleteFromRequest(request.student_matno)" class="btn btn-sm btn-danger d-block mt-2 mb-2">Delete</a>
+                      <a @click="checkRequest(request.path_to_upload)"  class="btn btn-sm btn-warning d-block mt-2 mb-2">Check Doc</a>
+                      <a @click="generate(request.student_matno)" class="btn btn-sm btn-info d-block mt-2 mb-2">Generate</a>
+                    </td>
+                    
+                    
+                    
+  
+                </tr>
+              </table>
+
+
+
+
+         
+        </div>
+
+
+        <!-- Modal Start -->
+        <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <p> Are you sure you want to reset this entries?</p>
+       <p>You will loose both keys</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <!-- End of Modal -->
+
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <p>Are you sure you want to send? <br/> This action is inreversible</p>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal" >Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <!-- End of Modal -->
+</div>
+</div>
+</div>
+
+</body>
+<script src="../public/bootstrap.min.js"></script>
+<script src="../public/popper.min.js"></script>
+<script src="../public/vue.js"></script>
+<script src="../public/axios.min.js"></script>
+<script src="../public/FileSaver.min.js"></script>
+
+<script>
+  var vue = new Vue({
+    el:"#vuecontainer",
+    data:{
+      resultState:"",
+      result:[]
+    },
+    methods:{
+
+      fetchRequests()
+      {
+        axios.get("/fetch_requests")
+        .then(res=>{
+            this.result = res.data.result
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+      },
+
+      generate(uid){
+        localStorage.setItem("generate_for", uid.toLowerCase())
+        // console.log(uid)
+        window.location.href = `/generate_trans`
+        
+      },
+
+      deleteFromRequest(uid){
+        localStorage.setItem("reject_for", uid.toLowerCase())
+        window.location.href = `/reject_for`
+        // console.log(uid)
+      },
+
+      checkRequest(uid){
+        localStorage.setItem("checkdocument_for", uid.toLowerCase())
+        window.location.href = `/checkrequest`
+      }
+    },
+
+    mounted(){
+      this.fetchRequests()
+    }
+  })
+</script>
+
+</html>
